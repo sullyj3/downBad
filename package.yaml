@@ -1,0 +1,63 @@
+name:                downBad
+version:             0.1.0.0
+github:              "sullyj3/downBad"
+license:             BSD3
+author:              "James Sully"
+maintainer:          "sullyj3@gmail.com"
+copyright:           "2022 James Sully"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/sullyj3/downBad#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- bytestring
+- network
+- ki-unlifted
+- streamly
+- utf8-string
+
+library:
+  source-dirs: src
+
+executables:
+  downbad:
+    main:                Main.hs
+    source-dirs:         downbad
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - downBad
+
+  downbadd:
+    main:                Main.hs
+    source-dirs:         downbadd
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - downBad
+
+tests:
+  downBad-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - downBad
