@@ -38,7 +38,8 @@ main = do
   runTCPClient "127.0.0.1" port (go cmd) `catch` handleConnectionError
   where
     go cmd sock = do
-      sendAll sock (Cmd.toByteString cmd)
+      -- sendAll sock (Cmd.toByteString cmd)
+      sendAll sock "download google.com"
       recv sock 256 >>= hPrint stderr
 
     handleConnectionError :: IOException -> IO ()

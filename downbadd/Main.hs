@@ -47,8 +47,14 @@ main = do
               case cmd of
                 Cmd.CmdLs ->
                   sendAll sock "[]"
+                Cmd.CmdDownload url -> do
+                  sendAll sock "ok"
+                  download url
             Nothing -> do
               log $ "Client sent invalid command: " <> UTF8.toString message
               sendAll sock "error unknown command"
               Socket.close sock
           loop sock
+
+    download url = do
+      log $ "download " <> url <> ": downloading not implemented"
