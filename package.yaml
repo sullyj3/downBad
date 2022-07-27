@@ -23,6 +23,7 @@ dependencies:
 - base >= 4.7 && < 5
 - bytestring
 - network
+- network-run
 - ki-unlifted
 - streamly
 - utf8-string

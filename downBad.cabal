@@ -33,6 +33,7 @@ library
     , bytestring
     , ki-unlifted
     , network
+    , network-run
     , streamly
     , utf8-string
   default-language: Haskell2010
@@ -50,6 +51,7 @@ executable downbad
     , downBad
     , ki-unlifted
     , network
+    , network-run
     , streamly
     , utf8-string
   default-language: Haskell2010
@@ -67,6 +69,7 @@ executable downbadd
     , downBad
     , ki-unlifted
     , network
+    , network-run
     , streamly
     , utf8-string
   default-language: Haskell2010
@@ -85,6 +88,7 @@ test-suite downBad-test
     , downBad
     , ki-unlifted
     , network
+    , network-run
     , streamly
     , utf8-string
   default-language: Haskell2010
