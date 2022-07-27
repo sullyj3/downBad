@@ -25,6 +25,7 @@ dependencies:
 - network
 - network-run
 - ki-unlifted
+- optparse-applicative
 - streamly
 - utf8-string
 
