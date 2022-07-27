@@ -31,27 +31,24 @@ main = do
   where
     handleClient sock = do
       log $ "Client connected on socket: " <> show sock
-      sendAll sock (UTF8.fromString "Hello, client!")
-      resp <- recv sock 256
-      if resp == "Hello, server!"
-        then do
-          sendAll sock (UTF8.fromString "Ok")
-          loop sock
-        else do
-          log "client got the handshake wrong. Closing the connection"
-          Socket.close sock
+      loop sock
 
     loop :: Socket -> IO ()
     loop sock = do
-      resp <- recv sock 256
-      if BS.null resp
+      message <- recv sock 256
+      if BS.null message
         then do
           Socket.close sock
           log "Client closed the connection"
         else do
-          case Cmd.fromByteString resp of
+          case Cmd.fromByteString message of
             Just cmd -> do
               log $ "Client: " <> show cmd
+              case cmd of
+                Cmd.CmdLs ->
+                  sendAll sock "[]"
             Nothing -> do
-              log $ "Client sent invalid command: " <> UTF8.toString resp
+              log $ "Client sent invalid command: " <> UTF8.toString message
+              sendAll sock "error unknown command"
+              Socket.close sock
           loop sock
