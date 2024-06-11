@@ -27,6 +27,7 @@ dependencies:
 - ki-unlifted
 - optparse-applicative
 - streamly
+- streamly-core
 - utf8-string
 
 library:

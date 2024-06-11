@@ -14,7 +14,7 @@ import Network.Socket (Socket)
 import Network.Socket qualified as Socket
 import Network.Socket.ByteString (recv, sendAll)
 import Streamly.Data.Fold qualified as Fold
-import Streamly.Internal.Network.Inet.TCP (acceptOnPortLocal)
+import Streamly.Internal.Network.Inet.TCP (acceptorLocal)
 import Streamly.Prelude qualified as Stream
 import System.IO (BufferMode (..), Handle, hGetLine, hPutStrLn, hSetBuffering, stderr)
 import Prelude hiding (log)
@@ -27,7 +27,8 @@ main :: IO ()
 main = do
   hPutStrLn stderr $ "Server starting on localhost:" <> show port
   Stream.mapM_ handleClient $
-    Stream.unfold acceptOnPortLocal port
+    Stream.unfold acceptorLocal port
+
   where
     handleClient sock = do
       log $ "Client connected on socket: " <> show sock
@@ -45,7 +46,8 @@ main = do
             Just cmd -> do
               log $ "Client: " <> show cmd
               case cmd of
-                Cmd.CmdLs ->
+                Cmd.CmdLs -> do
+                  log $ "Sending [] to client"
                   sendAll sock "[]"
                 Cmd.CmdDownload url -> do
                   sendAll sock "ok"
